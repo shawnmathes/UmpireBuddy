@@ -1,6 +1,9 @@
 package edu.umkc.smbr5.umpirebuddy;
 
+import java.util.Locale;
+
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,14 +14,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+import android.speech.tts.*;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends Activity implements OnClickListener, TextToSpeech.OnInitListener {
     private static final String PREFS_NAME = "PrefsFile";
     private static final String TOTAL_OUTS_INDEX = "total_outs_index";
     
     private int strike_count;
     private int ball_count;
     private int total_outs;
+    private TextToSpeech tts;
+    private boolean speak_enabled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,11 @@ public class MainActivity extends Activity implements OnClickListener {
         }
 
         reset();
+        
+        tts = new TextToSpeech(this, this);
+        
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        speak_enabled = sharedPref.getBoolean(SettingsActivity.KEY_PREF_ENABLE_AUDIBLE, false);
     }
 
     @Override
@@ -86,6 +97,23 @@ public class MainActivity extends Activity implements OnClickListener {
         // Commit the edits
         editor.commit();
     }
+    
+    @Override
+    public void onDestroy() {
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        
+        super.onDestroy();
+    }
+    
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS) {
+            tts.setLanguage(Locale.US);
+        }
+    }
 
     private void reset() {
         strike_count = 0;
@@ -110,6 +138,7 @@ public class MainActivity extends Activity implements OnClickListener {
                 strike_count++;
             } else {
                 total_outs++;
+                speakOut("out");
                 alertAndReset(R.string.strike_out_text);
             }
             break;
@@ -117,6 +146,7 @@ public class MainActivity extends Activity implements OnClickListener {
             if (ball_count < 3) {
                 ball_count++;
             } else {
+                speakOut("walk");
                 alertAndReset(R.string.walk_text);
             }
             break;
@@ -146,5 +176,11 @@ public class MainActivity extends Activity implements OnClickListener {
         
         TextView t = (TextView) findViewById(R.id.total_outs_textview);
         t.setText(Integer.toString(total_outs));
+    }
+    
+    private void speakOut(String text) {
+        if (speak_enabled) {
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+        }
     }
 }

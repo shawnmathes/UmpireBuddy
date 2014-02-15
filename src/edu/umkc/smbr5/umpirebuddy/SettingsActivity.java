@@ -9,6 +9,7 @@ import android.annotation.TargetApi;
 import android.os.Build;
 
 public class SettingsActivity extends Activity {
+    public static final String KEY_PREF_ENABLE_AUDIBLE = "pref_audible_announcement";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
