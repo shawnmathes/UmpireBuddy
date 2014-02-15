@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
-import android.view.View.OnLongClickListener;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.Toast;
 
-public class AboutActivity extends Activity implements OnLongClickListener {
+public class AboutActivity extends Activity implements OnMenuItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +23,8 @@ public class AboutActivity extends Activity implements OnLongClickListener {
         // Show the Up button in the action bar.
         setupActionBar();
         
-        Context context = getApplicationContext();
-        CharSequence text = "More info about author...";
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+        View aboutText = findViewById(R.id.about_content);
+        registerForContextMenu(aboutText);
     }
     
     /**
@@ -42,11 +43,39 @@ public class AboutActivity extends Activity implements OnLongClickListener {
         getMenuInflater().inflate(R.menu.about, menu);
         return true;
     }
-
+    
     @Override
-    public boolean onLongClick(View arg0) {
-        // TODO Auto-generated method stub
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+        
+        MenuItem more = (MenuItem) menu.findItem(R.id.more);
+        more.setOnMenuItemClickListener(this);
+        
+        MenuItem message = (MenuItem) menu.findItem(R.id.message);
+        message.setOnMenuItemClickListener(this);
+    }
+    
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+        case (R.id.more):
+            showToast("More info about author...");
+            return true;
+        case (R.id.message):
+            showToast("Message menu item selected.");
+            return true;
+        }
         return false;
     }
-
+    
+    private void showToast(CharSequence text) {
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
 }
