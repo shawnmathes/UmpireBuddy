@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical" >
+
+	<TableLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center" >
+
+		<TableRow>
+
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:gravity="right"
+				android:paddingRight="15dip"
+				android:text="@string/strike_text_label"
+				android:textSize="24.5sp" />
+
+			<TextView
+				android:id="@+id/strike_textview"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:textSize="24.5sp" />
+		</TableRow>
+
+		<TableRow>
+
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:gravity="right"
+				android:paddingRight="15dip"
+				android:text="@string/ball_text_label"
+				android:textSize="24.5sp" />
+
+			<TextView
+				android:id="@+id/ball_textview"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:textSize="24.5sp" />
+		</TableRow>
+
+		<TableRow>
+
+			<Button
+				android:id="@+id/strike_button"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="20dip"
+				android:text="@string/strike_button_label"
+				android:textSize="24.5sp" />
+
+			<Button
+				android:id="@+id/ball_button"
+				android:layout_width="86dp"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="20dip"
+				android:text="@string/ball_button_label"
+				android:textSize="24.5sp" />
+		</TableRow>
+
+		<TableRow>
+
+			<TextView
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:paddingRight="15dip"
+				android:text="@string/total_outs_text_label"
+				android:textSize="24.5sp" />
+
+			<TextView
+				android:id="@+id/total_outs_textview"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:textSize="24.5sp" />
+		</TableRow>
+	</TableLayout>
+
+</LinearLayout>

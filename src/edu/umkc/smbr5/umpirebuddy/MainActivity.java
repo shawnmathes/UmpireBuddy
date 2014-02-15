@@ -19,10 +19,12 @@ import android.speech.tts.*;
 public class MainActivity extends Activity implements OnClickListener, TextToSpeech.OnInitListener {
     private static final String PREFS_NAME = "PrefsFile";
     private static final String TOTAL_OUTS_INDEX = "total_outs_index";
+    private static final String STRIKE_COUNT_INDEX = "strike_count_index";
+    private static final String BALL_COUNT_INDEX = "ball_count_index";
     
-    private int strike_count;
-    private int ball_count;
-    private int total_outs;
+    private int strike_count = 0;
+    private int ball_count = 0;
+    private int total_outs = 0;
     private TextToSpeech tts;
     private boolean speak_enabled;
 
@@ -38,6 +40,8 @@ public class MainActivity extends Activity implements OnClickListener, TextToSpe
         ballButton.setOnClickListener(this);
         
         if (savedInstanceState != null) {
+            strike_count = savedInstanceState.getInt(STRIKE_COUNT_INDEX, 0);
+            ball_count = savedInstanceState.getInt(BALL_COUNT_INDEX, 0);
             total_outs = savedInstanceState.getInt(TOTAL_OUTS_INDEX, 0);
         } else {
             // Restore preferences
@@ -47,7 +51,7 @@ public class MainActivity extends Activity implements OnClickListener, TextToSpe
             total_outs = settings.getInt(TOTAL_OUTS_INDEX, 0);
         }
 
-        reset();
+        updateDisplay();
         
         tts = new TextToSpeech(this, this);
         
@@ -83,6 +87,8 @@ public class MainActivity extends Activity implements OnClickListener, TextToSpe
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt(STRIKE_COUNT_INDEX, strike_count);
+        savedInstanceState.putInt(BALL_COUNT_INDEX, ball_count);
         savedInstanceState.putInt(TOTAL_OUTS_INDEX, total_outs);
     }
     
