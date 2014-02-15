@@ -5,7 +5,7 @@
 	android:versionName="1.0" >
 
 	<uses-sdk
-		android:minSdkVersion="8"
+		android:minSdkVersion="11"
 		android:targetSdkVersion="19" />
 
 	<application
@@ -25,6 +25,14 @@
 		<activity
 			android:name="edu.umkc.smbr5.umpirebuddy.AboutActivity"
 			android:label="@string/title_activity_about"
+			android:parentActivityName="edu.umkc.smbr5.umpirebuddy.MainActivity" >
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="edu.umkc.smbr5.umpirebuddy.MainActivity" />
+		</activity>
+		<activity
+			android:name="edu.umkc.smbr5.umpirebuddy.SettingsActivity"
+			android:label="@string/title_activity_settings"
 			android:parentActivityName="edu.umkc.smbr5.umpirebuddy.MainActivity" >
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"

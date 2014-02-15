@@ -58,6 +58,9 @@ public class MainActivity extends Activity implements OnClickListener {
             case R.id.action_about:
                 openAbout();
                 return true;
+            case R.id.action_settings:
+                openSettings();
+                return true;
             case R.id.action_reset:
                 reset();
                 return true;
@@ -92,6 +95,11 @@ public class MainActivity extends Activity implements OnClickListener {
 
     private void openAbout() {
         Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
+    }
+    
+    private void openSettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 

@@ -16,5 +16,9 @@
 	<string name="more_info">More Info</string>
 	<string name="message">Message</string>
 	<string name="total_outs_text_label">Total outs:</string>
+	<string name="title_activity_settings">Settings</string>
+	<string name="action_settings">Settings</string>
+	<string name="pref_audible_announcement_title">Announce out/walk</string>
+	<string name="pref_audible_announcement_summary">Announce "out" and "walk" audibly.</string>
 
 </resources>
